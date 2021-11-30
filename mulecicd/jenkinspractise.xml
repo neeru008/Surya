@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="5507f9f6-12fb-4190-aaa6-fe83292c2b74" >
+		<http:listener-connection host="localhost" port="8081" />
+	</http:listener-config>
+	<flow name="jenkinspractiseFlow" doc:id="523fa10a-2a18-46ad-9fad-05a1ad54ece3" >
+		<http:listener doc:name="Listener" doc:id="ae28eca0-0a87-413e-9bf9-64ce112a62d8" config-ref="HTTP_Listener_config" path="/jenkins"/>
+		<set-payload value='"message":"success"' doc:name="Set Payload" doc:id="93d824f4-eac3-4fee-922c-7abf5424697c" />
+	</flow>
+</mule>
