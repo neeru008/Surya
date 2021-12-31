@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:os="http://www.mulesoft.org/schema/mule/os" xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="9e6b6ffe-b2fc-4361-8d64-ca4065d87a05" >
+		<http:listener-connection host="localhost" port="8081" />
+	</http:listener-config>
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="77e2e755-cada-4ee8-b89d-16059dc71873" >
+		<db:my-sql-connection host="localhost" port="3306" user="root" password="root" database="keerthi" />
+	</db:config>
+	<os:config name="ObjectStore_Config" doc:name="ObjectStore Config" doc:id="f23ea2c1-cfdd-4212-86c5-28068cf81d5f" >
+		<os:connection />
+	</os:config>
+	<os:object-store name="Object_store" doc:name="Object store" doc:id="6d354531-5403-4343-810f-04904a57d476" maxEntries="10" entryTtl="1" entryTtlUnit="MINUTES" expirationInterval="5" config-ref="ObjectStore_Config" />
+	<salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="e51e821f-dc2d-4d08-9a43-9f90632eb0e9" >
+		<salesforce:basic-connection username="neeru@deloitte.com" password="Keerthi@008" securityToken="UMlk7BC2Uedigr6twAblzH65" />
+	</salesforce:sfdc-config>
+	<flow name="handsonFlow" doc:id="d0f233f3-ceba-47b6-b4f8-e18e6b65052e" >
+		<scheduler doc:name="Scheduler" doc:id="5bb71946-24a6-4eb2-9b8d-eab216d931a9" >
+			<scheduling-strategy >
+				<fixed-frequency frequency="1" timeUnit="MINUTES"/>
+			</scheduling-strategy>
+		</scheduler>
+		<db:select doc:name="Select" doc:id="6b68622c-013c-4d64-a599-08345592dda5" config-ref="Database_Config">
+			<db:sql ><![CDATA[Select * from neeraja]]></db:sql>
+			<db:input-parameters ><![CDATA[#[payload]]]></db:input-parameters>
+		</db:select>
+		<logger level="INFO" doc:name="Logger" doc:id="82131c5a-91dc-4ba1-85f4-8740dc1bdd38" message="#[payload]"/>
+		<os:retrieve doc:name="Retrieve" doc:id="beb97542-e50b-46bb-8f22-50ab7004ce40" objectStore="Object_store" key="Defaultkey">
+			<os:default-value ><![CDATA[payload]]></os:default-value>
+		</os:retrieve>
+		<salesforce:upsert doc:name="Upsert" doc:id="9b54dd88-a525-4f8f-ba82-2fd7b7cd6541" config-ref="Salesforce_Config" objectType="RecordActionHistory" externalIdFieldName="Id"/>
+		<ee:transform doc:name="Transform Message" doc:id="86c90a9f-ba1c-4326-82d1-70576434eac6" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="36465352-53cb-4203-a9f1-8a98257015ef" message="payload"/>
+	</flow>
+</mule>
