@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd">
+	<sub-flow name="implementationSub_Flow" doc:id="4a86a80b-0351-4f12-a205-290fd73832fb" >
+		<logger level="INFO" doc:name="Logger" doc:id="3f0bcfd2-b0b6-49af-a969-c6fd57dbe71a" message="payload"/>
+		<file:write doc:name="Write" doc:id="fc50934e-8450-43eb-aae4-fedd1c99ce50" config-ref="File_Config" path="${file.path}"/>
+		<logger level="INFO" doc:name="Logger" doc:id="28885962-f3b7-4801-a4cf-9876a9c01be6" message="success"/>
+	</sub-flow>
+</mule>

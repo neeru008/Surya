@@ -1,0 +1,14 @@
+http:
+  host: "localhost"
+  port: "8081"
+
+api:
+    Protocol: "HTTPS"
+    Host: "gorest.co.in"
+    Base path: "/public/v2"
+    path: "/posts"
+environment : 
+    env: "dev"  
+file:
+   Working Directory: C:\Users\bizpl\OneDrive\Desktop\ftphome
+   path: "New Text Document"
