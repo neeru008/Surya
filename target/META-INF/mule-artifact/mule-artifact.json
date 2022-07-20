@@ -1,0 +1,33 @@
+{
+  "configs": [
+    "implementation.xml",
+    "interface.xml",
+    "globalerrorhandler.xml",
+    "config.xml"
+  ],
+  "secureProperties": [],
+  "redeploymentEnabled": true,
+  "name": "com.mycompany:successful:1.0.0-SNAPSHOT",
+  "minMuleVersion": "4.4.0",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "exportedPackages": [],
+      "exportedResources": [
+        "application-types.xml",
+        "config/dev.yaml",
+        "config/prod.yaml",
+        "config.xml",
+        "globalerrorhandler.xml",
+        "implementation.xml",
+        "interface.xml",
+        "log4j2.xml"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  }
+}

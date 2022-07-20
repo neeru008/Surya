@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd">
+	<configuration-properties doc:name="Configuration properties" doc:id="6c96316d-70be-46f5-a4e7-c3947d32fd49" file="config/${env}.yaml" />
+	<global-property doc:name="Global Property" doc:id="b67a1330-33fc-4b5c-ba16-2c81ff708914" name="env" value="dev" />
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="eb7349c6-7a5f-4d8f-a95f-44533ae2d3d2" >
+		<http:listener-connection host="${http.host}" port="${http.port}" />
+	</http:listener-config>
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="02ee96a4-4623-4088-a661-4b0fc197e93a" basePath="${api.Base path}" >
+		<http:request-connection protocol="${api.Protocol}" host="${api.Host}" />
+	</http:request-config>
+	<file:config name="File_Config" doc:name="File Config" doc:id="57ee416d-57e8-470f-968a-029bacbd1664" >
+		<file:connection workingDir="${file.Working Directory}" />
+	</file:config>
+	<configuration doc:name="Configuration" doc:id="7320daf4-c303-4a69-b309-962d3e79d7c0" defaultErrorHandler-ref="globalerrorhandlerError_Handler" />
+</mule>

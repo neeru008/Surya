@@ -1,0 +1,12 @@
+http:
+  host: "localhost"
+  port: "8083"
+   
+api:
+    Protocol: "HTTPS"
+    Host: "gorest.co.in"
+    Base path: "/public/v2"
+    path: "/posts"
+    
+environment : 
+       env: "prod"   

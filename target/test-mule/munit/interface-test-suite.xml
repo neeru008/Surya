@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="interface-test-suite.xml" />
+	<munit:test name="interface-test-suite-successfulFlowTest" doc:id="b10699e5-f5d0-4669-8220-da57ede8ce00" description="Test">
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when" doc:id="c606ff35-b7f0-4f83-993a-719421c2e296" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="Request" attributeName="doc:name" />
+					<munit-tools:with-attribute whereValue="a3354f66-0e54-4416-aae8-42c27fd9d4a6" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="payload" mediaType="application/json" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="61970e4e-b642-4757-9b66-22e0a6102265" />
+			<flow-ref doc:name="Flow-ref to successfulFlow" doc:id="9a577285-98c5-4993-92d5-8f7db6fdf624" name="successfulFlow"/>
+		</munit:execution>
+	</munit:test>
+
+
+</mule>
